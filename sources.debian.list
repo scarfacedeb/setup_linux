@@ -1,0 +1,34 @@
+## DEBIAN
+deb http://ftp.uk.debian.org/debian sid main contrib non-free
+# deb http://ftp.ru.debian.org/debian squeeze main
+deb http://ftp.uk.debian.org/debian wheezy-backports main contrib non-free
+# deb-src http://http.debian.net/debian wheezy main contrib non-free
+
+## DEBIAN SECURITY
+# deb http://security.debian.org/ wheezy/updates main
+# deb-src http://security.debian.org/ wheezy/updates main
+
+## NGINX
+deb http://nginx.org/packages/debian/ wheezy nginx
+
+## POSTGRESQL
+deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main
+
+## Debian multimedia
+# deb http://www.deb-multimedia.org sid main non-free
+
+## Spotify
+# deb http://repository.spotify.com stable non-free
+
+## Experimental for NVIDIA
+# deb http://ftp.ru.debian.org/debian experimental main contrib non-free
+
+## Games
+# deb http://archive.getdeb.net/ubuntu raring-getdeb games
+deb http://mirrors.dotsrc.org/getdeb/ubuntu raring-getdeb games
+
+# Deadbeef player
+deb http://ppa.launchpad.net/starws-box/deadbeef-player/ubuntu trusty main
+
+# Steam client
+# deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam

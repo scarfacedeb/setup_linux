@@ -1,0 +1,74 @@
+#############################################################
+################### OFFICIAL UBUNTU REPOS ###################
+#############################################################
+
+###### Ubuntu Main Repos
+deb http://ru.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+
+###### Ubuntu Update Repos
+deb http://ru.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+
+###### Ubuntu Partner Repo
+deb http://archive.canonical.com/ubuntu trusty partner
+
+###### Ubuntu Extras Repo
+deb http://extras.ubuntu.com/ubuntu trusty main
+
+##############################################################
+##################### UNOFFICIAL  REPOS ######################
+##############################################################
+
+###### 3rd Party Binary Repos
+
+#### Dropbox - http://dropbox.com
+## Run this command: sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+deb http://linux.dropbox.com/ubuntu/ trusty main
+
+#### Equinox PPA - https://launchpad.net/~tiheum/+archive/equinox
+## Run this command: sudo apt-get update && sudo apt-get install faenza-icon-theme && sudo apt-get install equinox-theme
+deb http://ppa.launchpad.net/tiheum/equinox/ubuntu trusty main
+
+#### Google Chrome Browser - http://www.google.com/linuxrepositories/
+## Run this command: wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
+deb http://dl.google.com/linux/chrome/deb/ stable main
+
+#### Google Earth - http://www.google.com/linuxrepositories/
+## Run this command: wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
+deb http://dl.google.com/linux/earth/deb/ stable main
+
+## NGINX
+deb http://nginx.org/packages/ubuntu/ trusty nginx
+
+## POSTGRESQL
+deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+
+#### MongoDB - http://www.mongodb.org/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+
+#### Opera Beta - http://www.opera.com/
+## Run this command: sudo wget -O - http://deb.opera.com/archive.key | sudo apt-key add -
+deb http://deb.opera.com/opera-beta/ stable non-free
+
+#### PlayDeb - http://www.playdeb.net/
+## Run this command: wget -O- http://archive.getdeb.net/getdeb-archive.key | sudo apt-key add -
+#deb http://archive.getdeb.net/ubuntu trusty-getdeb games
+# Mirror
+deb http://mirrors.dotsrc.org/getdeb/ubuntu trusty-getdeb games
+
+#### WebUpd8 PPA - http://www.webupd8.org/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu trusty main
+
+# Sublime text repo
+deb http://ppa.launchpad.net/webupd8team/sublime-text-3/ubuntu trusty main
+
+
+# Deadbeef player
+deb http://ppa.launchpad.net/starws-box/deadbeef-player/ubuntu trusty main
+
+# Steam client
+# deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
+
+deb http://ppa.launchpad.net/atareao/sunflower/ubuntu trusty main
