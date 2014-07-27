@@ -13,16 +13,17 @@ setup_apt(){
 
   if [ -f $keys_list ]; then
     info "Importing keys"
-    . $keys_list
+    . $keys_list >> /tmp/setup_linux.log
   fi
 
   info "Updating and upgrading"
-  aptitude update
-  aptitude -y upgrade
+  apt-get update
 
   # Import all missing gpg keys
-  aptitude -y install launchpad-getkeys
+  apt-get -y install launchpad-getkeys aptitude
   launchpad-getkeys
+
+  aptitude -y upgrade
 }
 
 install_apt(){
