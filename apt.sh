@@ -49,7 +49,7 @@ packages+=(imagemagick build-essentials libc6-dbg linux-headers-amd64 dkms autom
 # - obconf: configure openbox
 # - lxappearance: configure themes and icons
 # - bleachbit: clean up
-packages+=(htop foremost lynx pigz pv tree obmenu obconf obapps dconf-editor lxappearance bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin)
+packages+=(htop foremost lynx pigz pv tree obmenu obconf obapps dconf-editor lxappearance bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin screenfetch)
 
 # Misc programs
 # - sunflower: totalcommander-like file manager
