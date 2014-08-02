@@ -1,34 +1,61 @@
 #!/usr/bin/env bash
 
+. functions.sh
+
 setup_apt(){
-  info "Setup apt..."
+  should_setup="N"
+  user ' - Do you want to setup apt? (y/N)'
+  read -e should_setup
 
-  local sources_list="sources.$OS.list"
-  local keys_list="apt_keys.$OS.sh"
+  if [[ $should_setup = 'y' ]]
+  then
+    echo "Setup apt..."
 
-  if [ -f $sources_list ]; then
-    info "Replacing sources.list"
-    cp $sources_list /etc/apt/sources.list
+    local sources_list="sources.$OS.list"
+    local keys_list="apt_keys.$OS.sh"
+
+    if [ -f $sources_list ]; then
+      echo  "Replacing sources.list"
+      cp $sources_list /etc/apt/sources.list
+    fi
+
+    if [ -f $keys_list ]; then
+      echo "Importing keys"
+      . $keys_list >> /tmp/setup_linux.log
+    fi
+
+    echo "Updating and upgrading"
+    apt-get update
+
+    # Import all missing gpg keys
+    apt-get -y install launchpad-getkeys aptitude
+    launchpad-getkeys
+
+    aptitude upgrade
   fi
-
-  if [ -f $keys_list ]; then
-    info "Importing keys"
-    . $keys_list >> /tmp/setup_linux.log
-  fi
-
-  info "Updating and upgrading"
-  apt-get update
-
-  # Import all missing gpg keys
-  apt-get -y install launchpad-getkeys aptitude
-  launchpad-getkeys
-
-  aptitude -y upgrade
 }
 
 install_apt(){
-  echo "Installing apt packages: $packages"
-  aptitude -y install $packages
+  user ' - Do you want to install packages? (Y/n)'
+  read -e should_install
+
+  if [[ "${should_install:-y}" = 'y' ]]
+  then
+    echo "Installing apt packages: ${packages[*]}"
+    aptitude install ${packages[@]}
+  fi
+}
+
+remove_apt(){
+  should_remove="N"
+  user ' - Do you want to remove garbage packages? (y/N)'
+  read -e should_remove
+
+  if [[ $should_remove = 'y' ]]
+  then
+    echo "Removing garbage packages: ${garbage[*]}"
+    aptitude purge ${garbage[@]}
+  fi
 }
 
 OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
@@ -37,29 +64,40 @@ OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
 packages=()
 
 # Libs
-packages+=(imagemagick build-essentials libc6-dbg linux-headers-amd64 dkms automake ttf-mscorefonts-installer)
+packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagemagick ttf-mscorefonts-installer)
 
 # Utils
 # - foremost: recover lost files
 # - pigz: parallel gzip
 # - pv: pipe viewer for monitoring the progress of data through a pipeline.
 # - tree: output directory tree
-# - obmenu: edit openbox menu
-# - obapps: app-specific configs for openbox
-# - obconf: configure openbox
-# - lxappearance: configure themes and icons
 # - bleachbit: clean up
-packages+=(htop foremost lynx pigz pv tree obmenu obconf obapps dconf-editor lxappearance bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin)
+packages+=(htop foremost lynx pigz pv tree dconf-editor bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin whois curl wget)
 
 # Misc programs
 # - sunflower: totalcommander-like file manager
 # - xchat: IRC client
 # - transmission: torrent client
-packages+=(dropbox sunflower thunar xchat transmission gimp geeqie pavucontrol flac lame mpg123 rdesktop)
+packages+=(dropbox sunflower thunar xchat transmission gimp geeqie pavucontrol flac lame mpg123 rdesktop  zsh mc)
+
+# Openbox
+# - obmenu: edit openbox menu
+# - obapps: app-specific configs for openbox
+# - obconf: configure openbox
+# - lxappearance: configure themes and icons
+# - tint2: panel
+# - nitrogen: manage the wallpapers
+# - clipit: clipboard manager
+# - xfce4-appfinder: snappier synapse launcer
+# - gmrun: simple launcher
+packages+=(openbox obmenu obconf obapps lxappearance tint2 nitrogen clipit xfce4-appfinder gmrun)
 
 # Misc packages
 # - suckless-tools: simple minimalistic commands
-packages+=(faenza-icon-theme equinox-theme pulseaudio openssh-client openssh-server mkvtoolnix-gui suckless-tools)
+packages+=(pulseaudio openssh-client openssh-server mkvtoolnix-gui suckless-tools gnome-keyring)
+
+# Eye-candy
+packages+=(gtk2-engines-equinox equinox-theme faenza-icon-theme)
 
 # Browsers
 packages+=(google-chrome-stable google-chrome-unstable firefox opera-next)
@@ -67,19 +105,30 @@ packages+=(google-chrome-stable google-chrome-unstable firefox opera-next)
 # Media
 packages+=(deadbeef vlc smplayer)
 
-# Essentials
-packages+=(zsh curl wget gnome-keyring git)
-
 # Work tools
 # - trimage: optimize images
-packages+=(git-cola giggle gitk gitg mercurial cvs terminator guake sublime-text-installer vim gcolor2 trimage)
+packages+=(terminator guake tmux sublime-text-installer vim gcolor2 trimage mercurial cvs)
+
+# Git
+packages+=(git git-cola giggle gitk gitg)
 
 # Dev tools
 # - postfix: email server
-packages+=(postgresql postgresql-contrib pgadmin3 sqlite3 sqlitebrowser nodejs webp pngcrush exif jhead jpegoptim postfix perl python3)
+packages+=(postgresql postgresql-contrib pgadmin3 sqlite3 sqlitebrowser nodejs npm webp pngcrush exif jhead jpegoptim postfix perl python3)
 
 # Games
-packages+=(freeciv)
+packages+=(freeciv-client-gtk)
 
+
+
+# Apt packages to remove (e.g. apport on ubuntu)
+garbage=(apport apport-gtk xfburn xpad gnome-mplayer simple-scan gpicview lxterminal bluez ghostscript wvdial)
+# remove by a regex
+garbage+=("~n^cups" "~n^audacious" "~n^geany")
+# remove xserver useless drivers
+garbage+=(xserver-xorg-input-vmmouse xserver-xorg-input-wacom xserver-xorg-input-synaptics xserver-xorg-video-glamoregl xserver-xorg-video-modesetting xserver-xorg-video-qxl xserver-xorg-video-savage xserver-xorg-video-tdfx xserver-xorg-video-ati xserver-xorg-video-intel xserver-xorg-video-neomagic xserver-xorg-video-r128 xserver-xorg-video-siliconmotion xserver-xorg-video-trident xserver-xorg-video-cirrus xserver-xorg-video-mach64  xserver-xorg-video-radeon xserver-xorg-video-sis xserver-xorg-video-fbdev xserver-xorg-video-mga xserver-xorg-video-openchrome xserver-xorg-video-s3 xserver-xorg-video-sisusb xserver-xorg-video-vmware)
+
+
+remove_apt
 setup_apt
 install_apt

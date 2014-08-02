@@ -2,12 +2,16 @@
 #
 # Install general apps
 
-if (( $EUID != 0 )); then
-  echo "Please run as root"
-  exit
-fi
-
 set -e
+SETUP_ROOT=$(pwd)
 
 . functions.sh
-. apt.sh
+
+setup_system () {
+  chsh -s /usr/bin/zsh
+}
+
+#sudo bash -c "source $SETUP_ROOT/apt.sh"
+.  apt.sh
+
+setup_system
