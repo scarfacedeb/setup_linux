@@ -72,7 +72,7 @@ packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagema
 # - pv: pipe viewer for monitoring the progress of data through a pipeline.
 # - tree: output directory tree
 # - bleachbit: clean up
-packages+=(htop foremost lynx pigz pv tree dconf-editor bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin whois curl wget)
+packages+=(htop foremost lynx pigz pv tree dconf-editor bleachbit tcpdump ngrep nmap iptables net-tools telnet coreutils locate unzip p7zip p7zip-rar unetbootin whois curl wget screenfetch)
 
 # Misc programs
 # - sunflower: totalcommander-like file manager
