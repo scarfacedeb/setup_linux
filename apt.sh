@@ -64,7 +64,8 @@ OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
 packages=()
 
 # Libs
-packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagemagick ttf-mscorefonts-installer libwebkit-dev)
+#  libqtwebkit-dev: dependency of capybara-webkit gem
+packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagemagick ttf-mscorefonts-installer libqtwebkit-dev)
 
 # Utils
 # - foremost: recover lost files
