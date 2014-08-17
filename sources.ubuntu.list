@@ -71,4 +71,8 @@ deb http://ppa.launchpad.net/starws-box/deadbeef-player/ubuntu trusty main
 # Steam client
 # deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
 
+# Sunflower FM
 deb http://ppa.launchpad.net/atareao/sunflower/ubuntu trusty main
+
+# Docker
+deb https://get.docker.io/ubuntu docker main
