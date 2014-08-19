@@ -91,7 +91,7 @@ packages+=(dropbox sunflower thunar xchat transmission gimp geeqie pavucontrol f
 # - clipit: clipboard manager
 # - xfce4-appfinder: snappier synapse launcer
 # - gmrun: simple launcher
-packages+=(openbox obmenu obconf obapps lxappearance tint2 nitrogen clipit xfce4-appfinder gmrun)
+packages+=(openbox obmenu obconf obapps lxappearance tint2 nitrogen clipit xfce4-appfinder gmrun xfce4-screenshooter)
 
 # Misc packages
 # - suckless-tools: simple minimalistic commands
