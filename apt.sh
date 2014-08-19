@@ -41,8 +41,19 @@ install_apt(){
 
   if [[ "${should_install:-y}" = 'y' ]]
   then
+    user '- Do you want to edit packages? (y/N)'
+    read -e should_edit_packages
+
+    # manually edit list of packages to install
+    if [[ "${should_edit_packages:-n}" = 'y' ]]
+    then
+      printf -- '%s\n' "${packages[@]}"  > ./tmp_packages
+      (vi ./tmp_packages) && mapfile -t  packages < ./tmp_packages
+      rm ./tmp_packages
+    fi
+
     echo "Installing apt packages: ${packages[*]}"
-    aptitude install ${packages[@]}
+    aptitude install ${packages[*]}
   fi
 }
 
