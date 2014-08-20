@@ -76,7 +76,7 @@ packages=()
 
 # Libs
 #  libqtwebkit-dev: dependency of capybara-webkit gem
-packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagemagick ttf-mscorefonts-installer libqtwebkit-dev)
+packages+=(build-essential libc6-dbg linux-headers-generic dkms automake imagemagick ttf-mscorefonts-installer libqtwebkit-dev python-pip)
 
 # Utils
 # - foremost: recover lost files
